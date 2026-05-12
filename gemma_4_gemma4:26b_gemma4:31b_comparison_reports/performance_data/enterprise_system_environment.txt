@@ -1,0 +1,81 @@
+ENTERPRISE SYSTEM ENVIRONMENT SPECIFICATIONS
+===========================================
+Generated: 2026-04-27 18:15:00 Asia/Calcutta
+Evaluation: Gemma 4 26B vs 31B Enterprise Models
+
+HARDWARE SPECIFICATIONS
+=======================
+Model Name: MacBook Pro
+Model Identifier: Mac15,7
+Model Number: MRW23HN/A
+Chip: Apple M3 Pro
+Total Cores: 12 (6 Performance + 6 Efficiency)
+Physical CPU Cores: 12
+Logical CPU Cores: 12
+Memory: 36 GB (38,654,705,664 bytes)
+System Firmware: 18000.101.7
+Hardware UUID: 1890449D-47F0-5798-84C3-EB86DC0E6505
+
+SOFTWARE ENVIRONMENT
+====================
+Operating System: macOS 26.4.1 (25E253)
+Kernel Version: Darwin 25.4.0
+Boot Volume: Macintosh HD
+Computer Name: VBSINDLM0001
+User: Punnet Vyas (puneetvyas)
+Security: Secure Virtual Memory Enabled, System Integrity Protection Enabled
+System Uptime: 11 days, 7 hours, 24 minutes
+
+AI MODEL PLATFORM
+=================
+Ollama Version: 0.21.0
+Platform Status: Ready for large model deployment
+
+CURRENT SYSTEM PERFORMANCE (BASELINE)
+=====================================
+Processes: 882 total (4 running, 878 sleeping)
+Load Average: 5.28, 3.35, 2.86
+CPU Usage: 9.39% user, 17.44% sys, 73.15% idle
+Memory Usage: 34G used (2679M wired, 2192M compressor), 1375M unused
+Virtual Memory: 452T vsize, 6144M framework vsize
+
+MEMORY STATISTICS (BASELINE)
+============================
+Page Size: 16,384 bytes
+Pages Free: 88,976
+Pages Active: 906,310
+Pages Inactive: 1,004,314
+Pages Wired Down: 171,749
+Pages in Compressor: 732,887
+Pages Occupied by Compressor: 140,269
+Swap Activity: 547,895 swapins, 787,391 swapouts
+
+STORAGE CONFIGURATION
+=====================
+Main Volume: /dev/disk3s1s1 - 460Gi total, 288Gi available (4% used)
+VM Volume: /dev/disk3s6 - 460Gi total, 288Gi available (2% used)
+Data Volume: /dev/disk3s5 - 460Gi total, 288Gi available (34% used)
+Available Storage: 288Gi (sufficient for large models)
+
+POWER STATUS
+============
+Power Source: AC Power
+Battery Status: 100% charged
+Power Management: Optimal for extended enterprise workloads
+
+ENTERPRISE READINESS ASSESSMENT
+===============================
+✓ Memory: 36GB exceeds minimum 32GB requirement for 26B/31B models
+✓ Storage: 288GB available exceeds 100GB requirement
+✓ CPU: M3 Pro 12-core suitable for enterprise AI workloads
+✓ Power: AC powered for stable enterprise operations
+✓ OS: macOS 26.4.1 compatible with Ollama 0.21.0
+✓ Security: Enterprise security features enabled
+
+ENTERPRISE DEPLOYMENT CLASSIFICATION
+===================================
+Configuration Type: High-Performance Workstation
+Enterprise Suitability: Excellent for 26B model, Good for 31B model
+Concurrent User Support: Single user optimal, limited multi-user
+Recommended Workload: Development, prototyping, strategic analysis
+Infrastructure Tier: Workstation-grade (suitable for enterprise development)

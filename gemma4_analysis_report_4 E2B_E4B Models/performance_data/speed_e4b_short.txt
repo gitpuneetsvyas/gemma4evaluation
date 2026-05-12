@@ -1,0 +1,24 @@
+Thinking...
+Plan: Explain core principles of REST API (Client-Server, Statelessness, Un[2D[K
+Uniform Interface) in exactly 50 words.
+
+Drafting check:
+1. Must be exactly 50 words.
+2. Must explain REST principles.
+
+Constraint Checklist & Confidence Score:
+1. Write exactly 50 words? Yes.
+2. Explain REST API principles? Yes.
+
+Confidence Score: 5/5
+
+Execution: Write the response, counting carefully.
+...done thinking.
+
+REST APIs adhere to core architectural constraints. The client-server separ[5D[K
+separation ensures distinct layers. Statelessness dictates each request con[3D[K
+contains all necessary information, preventing server sessions. A uniform i[1D[K
+interface standardizes interactions, typically using HTTP methods (GET, POS[3D[K
+POST, PUT, DELETE) to perform standard CRUD operations on identifiable reso[4D[K
+resources, making APIs scalable and predictable.
+

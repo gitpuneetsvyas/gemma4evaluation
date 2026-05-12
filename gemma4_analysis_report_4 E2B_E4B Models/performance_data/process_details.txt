@@ -1,0 +1,5 @@
+puneetvyas       55607   2.5  0.0 442213120   2560   ??  Ss    8:17PM   0:00.01 /bin/zsh -l -c ps aux | grep ollama > process_details.txt
+puneetvyas       21280   0.0  0.9 444847504 340208   ??  S    Tue09PM  55:49.07 /opt/homebrew/opt/ollama/bin/ollama serve
+puneetvyas       55619   0.0  0.0 416630448    160   ??  R     8:17PM   0:00.00 grep ollama
+puneetvyas       53643   0.0 26.6 456736416 10023616   ??  S     8:06PM   0:29.98 /opt/homebrew/Cellar/ollama/0.21.0_1/libexec/ollama runner --ollama-engine --model /Users/puneetvyas/.ollama/models/blobs/sha256-4c27e0f5b5adf02ac956c7322bd2ee7636fe3f45a8512c9aba5385242cb6e09a --port 53495
+puneetvyas       53459   0.0 19.3 453730992 7291008   ??  S     8:05PM   0:32.38 /opt/homebrew/Cellar/ollama/0.21.0_1/libexec/ollama runner --ollama-engine --model /Users/puneetvyas/.ollama/models/blobs/sha256-4e30e2665218745ef463f722c0bf86be0cab6ee676320f1cfadf91e989107448 --port 53464

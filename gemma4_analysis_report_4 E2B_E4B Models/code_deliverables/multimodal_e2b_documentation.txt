@@ -1,0 +1,750 @@
+Thinking...
+Here's a thinking process that leads to the suggested output:
+
+1.  **Deconstruct the Request & Identify Core Components:**
+    *   **System:** Cloud-native e-commerce platform (complex).
+    *   **Architecture:** 12 microservices, Event-driven, Kafka/RabbitMQ, P[1D[K
+PostgreSQL/MongoDB/Redis, API Gateway/Service Mesh, Monitoring/Logging.
+    *   **Deliverables (The "How-To"):**
+        1.  Architectural Diagrams (PlantUML required).
+        2.  API Documentation (OpenAPI, examples, auth, rate limiting).
+        3.  Developer Guides (Setup, testing, debugging, performance, secur[5D[K
+security).
+        4.  Operational Runbooks (Deployment, monitoring, troubleshooting, [K
+DR, scaling).
+        5.  Visual Elements (Sequence, State, Infra, Data Flow, User Journe[6D[K
+Journey).
+
+2.  **Determine Scope and Strategy (Simulating the Documentation):**
+    *   Since I cannot *actually* build a live system or run complex code g[1D[K
+generation tools outside of the text output, I must provide the *structure*[11D[K
+*structure* and *representative code* that a developer would use, focusing [K
+on the *relationships* and *complexity* inherent in the request.
+    *   The output must be comprehensive and follow the requested format (T[2D[K
+(TOC, cross-references, code examples).
+
+3.  **Drafting the Content (Section by Section):**
+
+    *   **Introduction/TOC:** Set the stage.
+    *   **Phase 1: Architecture (PlantUML Focus):** Need to define the comp[4D[K
+components and their connections clearly.
+    *   **Phase 2: API/Data (OpenAPI Focus):** Show how the services commun[6D[K
+communicate externally.
+    *   **Phase 3: Guides (Developer Focus):** Focus on practical implement[9D[K
+implementation details (CI/CD, testing mocks, secrets).
+    *   **Phase 4: Operations (Runbook Focus):** Focus on stability and res[3D[K
+response (SLOs, alerts, rollbacks).
+    *   **Phase 5: Visuals (Advanced Diagrams):** Focus on dynamic behavior[8D[K
+behavior (sequences, state).
+
+4.  **Refining Specific Deliverables (Self-Correction/Enhancement):**
+
+    *   *Self-Correction on PlantUML:* Instead of one massive diagram, I ne[2D[K
+need several focused ones (deployment, interaction, data flow).
+    *   *Self-Correction on API:* Must show *how* security flows (JWT, OAut[4D[K
+OAuth) and how rates are applied.
+    *   *Self-Correction on Runbooks:* Need specific, actionable steps (e.g[4D[K
+(e.g., "If Kafka lag > X, then check Y").
+
+5.  **Final Review and Formatting (Markdown Polish):** Ensure the tone is t[1D[K
+technical, the formatting uses code blocks correctly, and cross-references [K
+are established. (This leads to the final generated structure below.) (Cruc[5D[K
+(Crucial step: ensure the PlantUML code is syntactically correct, even if c[1D[K
+conceptually dense.)
+...done thinking.
+
+# E-COMMERCE PLATFORM: TECHNICAL ARCHITECTURE & OPERATIONAL GUIDE
+
+**Version:** 1.0
+**Date:** October 2023
+**Audience:** Development Teams, DevOps Engineers, System Administrators
+
+---
+
+## Table of Contents
+
+**1. Introduction**
+    1.1 System Goals
+    1.2 Architecture Philosophy (Event-Driven, Microservices)
+    1.3 Glossary & Cross-References
+
+**2. System Architecture Diagrams**
+    2.1 System Overview Diagram (PlantUML)
+    2.2 Service Interaction Diagram (PlantUML)
+    2.3 Deployment Architecture Diagram (PlantUML)
+    2.4 Network Topology Diagram (PlantUML)
+    2.5 Data Flow Diagram (Conceptual)
+    2.6 Security Boundaries Diagram
+
+**3. API Documentation & Contracts**
+    3.1 API Gateway Specification (OpenAPI)
+    3.2 Core Service API Contracts (Example)
+    3.3 Authentication Flow (OAuth 2.0 / JWT)
+    3.4 Rate Limiting Policies
+    3.5 Error Handling Standards
+
+**4. Developer Guides**
+    4.1 Local Development Setup
+    4.2 Testing Strategies and Examples (Mocking & Integration)
+    4.3 Debugging Procedures (Tracing & Logging)
+    4.4 Performance Optimization Guide (Caching & Queuing)
+    4.5 Security Best Practices (Secrets Management & Input Validation)
+
+**5. Operational Runbooks**
+    5.1 Deployment Procedures (CI/CD Pipeline)
+    5.2 Monitoring and Alerting Setup (SLOs & SLIs)
+    5.3 Troubleshooting Guide (Kafka Lag, DB Connection Failures)
+    5.4 Disaster Recovery Procedures (Failover & Backup)
+    5.5 Scaling Guidelines (Horizontal and Vertical)
+
+**6. Visual Workflows & State Models**
+    6.1 Order Processing Workflow (Sequence Diagram)
+    6.2 Inventory Management State Model (State Diagram)
+    6.3 User Registration Journey (User Journey Map)
+
+---
+
+# 2. System Architecture Diagrams (PlantUML)
+
+These diagrams define the structure and interaction of the microservices, d[1D[K
+databases, and infrastructure components.
+
+### 2.1 System Overview Diagram
+
+```plantuml
+@startuml SystemOverview
+!define ICONURL https://raw.githubusercontent.com/plantuml-memory/plantuml-[59D[K
+https://raw.githubusercontent.com/plantuml-memory/plantuml-uml/master/svg/
+skinparam handwritten true
+skinparam shadowing false
+
+rectangle "Cloud Environment" {
+    component "API Gateway / Service Mesh" as Gateway
+    component "Service Discovery (e.g., Consul)" as Discovery
+    component "Monitoring & Logging (Prometheus/ELK)" as Monitoring
+    component "Kafka Cluster" as Kafka
+    component "RabbitMQ Cluster" as RabbitMQ
+    component "PostgreSQL DB" as PG
+    component "MongoDB DB" as Mongo
+    component "Redis Cache" as Redis
+
+    package "Microservices Layer" {
+        component "Service A (Catalog)" as S_Catalog
+        component "Service B (Order)" as S_Order
+        component "Service C (Payment)" as S_Payment
+        component "Service D (Inventory)" as S_Inventory
+        component "Service E (User)" as S_User
+        component "Service F (Notification)" as S_Notification
+        ' ... (8 other services implied)
+    }
+
+    component "External Clients (Web/Mobile)" as Clients
+
+    Gateway --> S_Catalog : REST/gRPC
+    Gateway --> S_Order : REST/gRPC
+    Gateway --> S_User : REST/gRPC
+
+    S_Order --> Kafka : Publish Events (OrderCreated)
+    S_Inventory --> Kafka : Publish Events (InventoryReserved)
+
+    Kafka --> S_Payment : Consume Payment Request
+    RabbitMQ --> S_Notification : Consume Event
+    S_Payment --> PG : Transactional Data
+    S_Inventory --> Mongo : Inventory/Product Data
+    S_User --> Mongo : User Profiles
+    S_Order --> Redis : Session Caching
+
+    Gateway --> Monitoring : Metrics
+    Kafka --> Monitoring : Metrics
+}
+@enduml
+```
+
+### 2.2 Service Interaction Diagram (Focus: Order Fulfillment Workflow)
+
+```plantuml
+@startuml ServiceInteraction
+title Order Fulfillment Workflow
+actor Client
+participant Gateway
+participant S_Order as OrderS
+participant S_Inventory as InventoryS
+participant S_Payment as PaymentS
+participant Kafka as Kafka
+participant PG as PG
+participant Mongo as Mongo
+
+Client -> Gateway : POST /orders
+activate Gateway
+Gateway -> OrderS : Create Order Request
+activate OrderS
+
+OrderS -> Kafka : Publish Event: OrderCreated
+activate Kafka
+
+Kafka --> InventoryS : Consume: OrderCreated
+activate InventoryS
+InventoryS -> Mongo : Check Stock
+InventoryS --> Kafka : Publish Event: InventoryReserved
+deactivate InventoryS
+
+Kafka --> PaymentS : Consume: InventoryReserved
+activate PaymentS
+PaymentS -> PG : Execute Payment Transaction
+PaymentS --> Kafka : Publish Event: PaymentSuccessful
+deactivate PaymentS
+
+Kafka --> OrderS : Consume: PaymentSuccessful
+deactivate Kafka
+OrderS --> Gateway : Respond 201 Created
+deactivate OrderS
+
+Gateway --> Client : Order Success (201)
+deactivate Gateway
+@enduml
+```
+
+### 2.3 Deployment Architecture Diagram
+
+```plantuml
+@startuml DeploymentArchitecture
+skinparam handwritten true
+
+node "Kubernetes Cluster (K8s)" {
+    node "Service Mesh (Istio/Linkerd)" as Mesh {
+        component "Sidecar Proxies (Envoy)" as Proxies
+    }
+
+    component "API Gateway" as Gateway
+    component "Service Mesh Control Plane" as ControlPlane
+
+    component "Service A (Catalog)" as S_Catalog
+    component "Service B (Order)" as S_Order
+    component "Service C (Payment)" as S_Payment
+    component "Service D (Inventory)" as S_Inventory
+    component "Kafka Cluster" as Kafka
+    component "RabbitMQ Cluster" as RabbitMQ
+
+    node "Data Layer" {
+        database "PostgreSQL" as PG
+        database "MongoDB" as Mongo
+        cache "Redis" as Redis
+    }
+
+    node "Observability" {
+        component "Prometheus" as Prometheus
+        component "Grafana" as Grafana
+        component "ELK Stack" as ELK
+    }
+}
+
+Gateway -up-> S_Catalog : Traffic Routing
+Gateway -up-> S_Order : Traffic Routing
+
+S_Order --> Kafka : Events
+S_Inventory --> Kafka : Events
+
+S_Order --> PG : Read/Write
+S_User --> Mongo : Read/Write
+S_Payment --> Redis : Caching
+
+Monitoring --> Prometheus : Metrics Scrape
+ELK --> Kafka : Log Forwarding
+ControlPlane -right-> Mesh : Configuration
+Mesh -down-> Proxies : Sidecar Injection
+Proxies --> S_Catalog : mTLS Communication
+Proxies --> S_Order : mTLS Communication
+
+@enduml
+```
+
+### 2.4 Network Topology Diagram (Conceptual)
+
+*Description: Focuses on isolation, internal vs. external traffic, and secu[4D[K
+secure communication (mTLS).*
+
+The architecture utilizes a **Zero Trust** model enforced by the Service Me[2D[K
+Mesh (Istio).
+
+| Layer | Components | Communication Flow | Security Mechanism |
+| :--- | :--- | :--- | :--- |
+| **Edge** | API Gateway | External Client $\to$ Gateway | TLS 1.3, Rate Li[2D[K
+Limiting |
+| **Service Mesh** | Sidecar Proxies | Service $\leftrightarrow$ Service | [K
+Mutual TLS (mTLS), Authorization Policies |
+| **Services** | 12 Microservices | Internal RPC/REST | mTLS enforced by Me[2D[K
+Mesh |
+| **Messaging** | Kafka, RabbitMQ | Service $\leftrightarrow$ Broker | TLS,[4D[K
+TLS, ACLs |
+| **Data** | DBs (PG, Mongo, Redis) | Service $\leftrightarrow$ DB | Dedica[6D[K
+Dedicated VPC/Subnet access, IAM Roles |
+| **Observability** | Prometheus, ELK | Services $\to$ Monitoring | Secured[7D[K
+Secured Agent Communication |
+
+**Key Principle:** All inter-service communication is encrypted and authent[7D[K
+authenticated via the Service Mesh, preventing unauthorized lateral movemen[7D[K
+movement within the cluster.
+
+---
+
+# 3. API Documentation & Contracts
+
+## 3.1 API Gateway Specification (OpenAPI Example)
+
+This defines the entry point for all external requests.
+
+```yaml
+openapi: 3.0.0
+info:
+  title: E-commerce Platform API Gateway
+  version: 1.0.0
+servers:
+  - url: https://api.ecommerce.com/v1
+    description: Production Environment
+paths:
+  /orders:
+    post:
+      summary: Create a new order
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrderCreationRequest'
+      responses:
+        '201':
+          description: Order successfully created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderResponse'
+        '401':
+          description: Unauthorized (JWT missing or invalid)
+        '429':
+          description: Rate Limit Exceeded
+components:
+  schemas:
+    OrderCreationRequest:
+      type: object
+      properties:
+        userId: {type: string, format: uuid}
+        items: {type: array, items: {type: object}}
+        shippingAddress: {type: object}
+    OrderResponse:
+      type: object
+      properties:
+        orderId: {type: string}
+        status: {type: string, enum: [PENDING, PROCESSING, COMPLETED]}
+        totalAmount: {type: number}
+  security:
+    - BearerAuth: []
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+```
+
+## 3.2 Core Service API Contracts (Example: Inventory Service)
+
+**Service:** `InventoryService` (Microservice D)
+**Endpoint:** `/inventory/{sku}/reserve`
+**Method:** `POST`
+
+**Request Body:**
+```json
+{
+  "sku": "P1001-RED-L",
+  "quantity": 5,
+  "requestId": "uuid-xyz-123"
+}
+```
+
+**Success Response (200 OK):**
+```json
+{
+  "status": "RESERVED",
+  "sku": "P1001-RED-L",
+  "reservationId": "RES-98765",
+  "timestamp": "2023-10-27T10:00:00Z"
+}
+```
+
+**Error Handling:**
+| HTTP Code | Error Type | Description | Troubleshooting |
+| :--- | :--- | :--- | :--- |
+| 400 | `InvalidInputError` | SKU or quantity is invalid. | Check SKU forma[5D[K
+format against MongoDB index. |
+| 404 | `ProductNotFound` | The specified SKU does not exist. | Verify Mong[4D[K
+MongoDB collection existence. |
+| 429 | `RateLimitExceeded` | Client has exceeded their request quota. | Ch[2D[K
+Check `X-RateLimit-Remaining` header. |
+| 503 | `ServiceUnavailable` | Downstream service (e.g., PostgreSQL) is una[3D[K
+unavailable. | Check DB connection health and service mesh status. |
+
+## 3.3 Authentication Flow (JWT Based)
+
+1.  **Client Login:** Client sends credentials to the **Auth Service** (via[4D[K
+(via API Gateway).
+2.  **Token Generation:** Auth Service validates credentials and generates [K
+a signed **JWT** containing user ID, roles, and expiration time.
+3.  **Token Issuance:** The JWT is returned to the Client.
+4.  **API Request:** For every subsequent request, the Client includes the [K
+JWT in the `Authorization: Bearer <token>` header.
+5.  **Gateway Validation:** The API Gateway intercepts the request, validat[7D[K
+validates the JWT signature and expiration time. If valid, it extracts user[4D[K
+user context and applies **Authorization Policies** (via Service Mesh).
+6.  **Service Mesh Enforcement:** The Service Mesh ensures that only authen[6D[K
+authenticated and authorized services can communicate, enforcing **mTLS** b[1D[K
+between all microservices.
+
+## 3.4 Rate Limiting Policies
+
+Rate limiting is enforced at the **API Gateway** using a sliding window alg[3D[K
+algorithm, specific to the authenticated user/API key.
+
+| Endpoint | Limit (Requests/Minute) | Policy Applied | Notes |
+| :--- | :--- | :--- | :--- |
+| `/orders` (POST) | 60 | User-based | Limits potential order spamming. |
+| `/products` (GET) | 1200 | IP-based (fallback) | Protects against simple [K
+bot scraping. |
+| `/search` (GET) | 500 | User-based | |
+
+---
+
+# 4. Developer Guides
+
+## 4.1 Local Development Setup
+
+### Prerequisites
+*   Docker and Docker Compose
+*   Kubernetes (Minikube or K3s)
+*   PostgreSQL, MongoDB, Redis instances (Dockerized)
+*   Kafka and RabbitMQ brokers (Dockerized)
+*   Service Mesh tooling (e.g., Istio installed)
+*   API Client Tool (Postman/curl)
+
+### Steps
+1.  **Clone Repository:**
+    ```bash
+    git clone git@github.com:ecommerce/microservices.git
+    cd microservices
+    ```
+2.  **Setup Local Databases:**
+    Use Docker Compose to spin up all required services and data stores.
+    ```bash
+    docker-compose up -d
+    ```
+3.  **Build Services:**
+    Each service must be built and containerized. Use the provided `Dockerf[8D[K
+`Dockerfile` for each service.
+    ```bash
+    cd service-order
+    docker build -t order-service:latest .
+    ```
+4.  **Configure Environment:**
+    Set environment variables for connection strings, Kafka topics, and sec[3D[K
+secrets management (e.g., Vault injection).
+    ```bash
+    export DB_HOST=postgres
+    export KAFKA_BROKER=kafka:9092
+    ```
+5.  **Test Integration:**
+    Run the local Service Mesh and connectivity checks.
+    ```bash
+    kubectl apply -f istio-config.yaml
+    kubectl apply -f service-deployments.yaml
+    ```
+
+## 4.2 Testing Strategies and Examples
+
+### Integration Testing (Contract Testing)
+Use Pact or similar frameworks to ensure that the published Kafka events an[2D[K
+and API contracts are correctly implemented by consumers.
+
+**Example: Inventory Service Contract Test**
+Ensure that when `OrderService` publishes an `OrderCreated` event, the `Inv[4D[K
+`InventoryService` correctly updates its state (or reserves stock) within a[1D[K
+a defined SLA.
+
+### Performance Testing
+Use tools like JMeter or Locust to simulate high load on the **API Gateway*[8D[K
+Gateway** and critical services. Focus testing on:
+1.  **Latency:** Measure P95 latency for key endpoints (e.g., Order Placeme[7D[K
+Placement).
+2.  **Throughput:** Determine the maximum orders per second the system can [K
+handle.
+3.  **Queue Depth:** Monitor Kafka and RabbitMQ consumer lag under load.
+
+## 4.3 Debugging Procedures (Tracing & Logging)
+
+When an error occurs, follow the observability stack:
+
+1.  **Identify Entry Point:** Start with the API Gateway logs to confirm th[2D[K
+the request received the expected authentication and routing.
+2.  **Trace ID Retrieval:** Extract the Request ID or Trace ID (passed via [K
+headers) from the Gateway logs.
+3.  **Distributed Tracing (Jaeger/Zipkin):** Use the Trace ID to visualize [K
+the full request path across all 12 microservices. Look for latency bottlen[7D[K
+bottlenecks between services.
+4.  **Log Correlation (ELK Stack):** Search the centralized log store using[5D[K
+using the Trace ID to pull related logs from all involved services (e.g., c[1D[K
+check `order-service` logs for the successful publish, then check `inventor[9D[K
+`inventory-service` logs for the consumption failure).
+5.  **Queue Inspection:** If a service fails to consume an event, inspect t[1D[K
+the **Kafka consumer group lag** to determine if the issue is application l[1D[K
+logic or broker performance.
+
+## 4.4 Performance Optimization Guide
+
+### Caching Strategy
+*   **Redis (High-Speed Caching):** Use for session data, frequently access[6D[K
+accessed product details (Catalog service output), and inventory reservatio[10D[K
+reservation status. Cache TTLs should be set based on data volatility (e.g.[5D[K
+(e.g., Inventory data TTL: 60 seconds).
+*   **Database Read Replication:** Utilize PostgreSQL read replicas to offl[4D[K
+offload heavy read operations from the primary write instance.
+
+### Event-Driven Optimization
+*   **Batch Processing:** Configure Kafka consumers to handle events in bat[3D[K
+batches rather than one-by-one, reducing I/O overhead.
+*   **Asynchronous Processing:** Ensure non-critical path operations (like [K
+notifications) are handled asynchronously via queues, preventing synchronou[10D[K
+synchronous blocking of the core transaction flow.
+
+## 4.5 Security Best Practices
+
+1.  **Secrets Management:** **NEVER** hardcode credentials. Use a dedicated[9D[K
+dedicated secrets manager (e.g., HashiCorp Vault, AWS Secrets Manager) and [K
+inject secrets dynamically into containers at runtime.
+2.  **Input Validation:** Implement strict input validation (schema checks)[7D[K
+checks) at the API Gateway and within each microservice to prevent injectio[8D[K
+injection attacks (SQLi, XSS).
+3.  **Principle of Least Privilege (PoLP):** Configure IAM roles and servic[6D[K
+service accounts such that each microservice only has the minimum permissio[9D[K
+permissions required to interact with its specific database and message que[3D[K
+queue.
+4.  **mTLS Enforcement:** Ensure the Service Mesh is fully operational and [K
+enforcing mTLS for all service-to-service communication.
+
+---
+
+# 5. Operational Runbooks
+
+## 5.1 Deployment Procedures (CI/CD Pipeline)
+
+The system is deployed using GitOps principles, managed by **ArgoCD** targe[5D[K
+targeting the Kubernetes cluster.
+
+### Deployment Steps
+1.  **Code Commit:** Developer pushes code to a feature branch.
+2.  **CI Trigger:** Jenkins/GitLab CI triggers a pipeline.
+    a. **Build:** Run unit tests and build Docker images for the affected s[1D[K
+service.
+    b. **Scan:** Run static analysis (SAST) and dependency vulnerability sc[2D[K
+scans.
+    c. **Push:** Push validated images to the Container Registry.
+3.  **CD Synchronization (GitOps):**
+    a. **Manifest Update:** The CI pipeline updates the Git repository (the[4D[K
+(the configuration repo) with the new image tags in the Kubernetes YAML man[3D[K
+manifests.
+    b. **ArgoCD Sync:** ArgoCD detects the drift and initiates a synchroniz[10D[K
+synchronized rollout.
+4.  **Rollback Strategy:** If monitoring alerts trigger during rollout, Arg[3D[K
+ArgoCD automatically initiates a rollback to the last known stable configur[8D[K
+configuration.
+
+## 5.2 Monitoring and Alerting Setup (SLOs & SLIs)
+
+All services must define Service Level Objectives (SLOs) and monitor corres[6D[K
+corresponding Service Level Indicators (SLIs).
+
+| Component | SLO Target | SLI Metric | Alert Threshold | Monitoring Tool |[1D[K
+|
+| :--- | :--- | :--- | :--- | :--- |
+| **API Gateway** | 99.9% Uptime | Request Latency (P95) | > 500ms for 5 mi[2D[K
+min | Prometheus/Grafana |
+| **Order Service** | 99.95% Availability | Error Rate (5xx responses) | > [K
+1% error rate | Prometheus/Alertmanager |
+| **Kafka Cluster** | 99.9% Throughput | Consumer Lag (Offsets) | Lag > 5,0[3D[K
+5,000 messages | Prometheus/Kafka Exporter |
+| **Database (PG)** | 99.9% Availability | Connection Pool Saturation | Poo[3D[K
+Pool usage > 85% | Prometheus/pg_exporter |
+| **Service Mesh** | 100% mTLS | mTLS Handshake Success Rate | < 99.9% succ[4D[K
+success | Istio Metrics |
+
+## 5.3 Troubleshooting Guide
+
+### Scenario 1: Order Placement Failure (HTTP 500)
+**Symptoms:** Customer receives a 500 error when attempting to place an ord[3D[K
+order.
+**Action Steps:**
+1.  **Check Gateway Logs:** Verify if the request reached the Order Service[7D[K
+Service.
+2.  **Trace:** Use the trace ID to inspect the full distributed trace (Jaeg[5D[K
+(Jaeger) to pinpoint the failing service.
+3.  **Inspect Service Logs:** Check the logs for the service identified by [K
+the trace. Look for database exceptions, failed Kafka consumption, or inter[5D[K
+internal exceptions.
+4.  **Check Dependencies:** Verify connectivity to PostgreSQL and MongoDB. [K
+If DB connection fails, immediately check the health of the database cluste[6D[K
+cluster.
+
+### Scenario 2: Kafka Consumer Lag (Performance Degradation)
+**Symptoms:** Kafka consumer groups show increasing message lag, leading to[2D[K
+to stale data or slow processing.
+**Action Steps:**
+1.  **Check Consumer Health:** Verify the health of the specific microservi[10D[K
+microservice consumer container.
+2.  **Inspect Lag:** Use Kafka tools (e.g., `kafka-consumer-groups.sh`) or [K
+Prometheus metrics to quantify the lag for the specific topic.
+3.  **Identify Bottleneck:** If lag is high, the service processing the eve[3D[K
+events is overloaded. Check the resource utilization (CPU/Memory) of the co[2D[K
+consumer pods.
+4.  **Remediate:** If CPU is high, scale out the consumer service horizonta[9D[K
+horizontally. If the lag persists, investigate the slowest downstream datab[5D[K
+database query.
+
+## 5.4 Disaster Recovery Procedures (DR)
+
+**Strategy:** Active-Passive Multi-Region Deployment.
+
+1.  **Backup Strategy:**
+    *   **Databases:** Continuous Point-in-Time Recovery (PITR) backups for[3D[K
+for PostgreSQL and MongoDB, replicated to a secondary region.
+    *   **Messaging:** Kafka/RabbitMQ logs are replicated asynchronously to[2D[K
+to the DR region.
+2.  **Failover Plan:**
+    *   **DNS Switch:** Update global DNS records to redirect traffic to th[2D[K
+the DR region load balancers.
+    *   **Data Synchronization:** Promote the secondary DB cluster to be th[2D[K
+the primary write source (requires careful synchronization management).
+    *   **Service Rollback:** Use ArgoCD to deploy the last stable configur[8D[K
+configuration to the DR region.
+3.  **Testing:** Perform mandatory, quarterly DR drills to validate the dat[3D[K
+data synchronization and failover mechanisms.
+
+## 5.5 Scaling Guidelines
+
+### Horizontal Scaling (Recommended)
+*   **Microservices:** Scale services based on demand using Kubernetes Hori[4D[K
+Horizontal Pod Autoscalers (HPA). Set HPA targets based on CPU utilization,[12D[K
+utilization, memory usage, or custom metrics (e.g., Kafka queue depth).
+*   **API Gateway:** Scale the Gateway instances to handle increased connec[6D[K
+connection volume.
+*   **Database:** Use read replicas for high read volume. For write-heavy s[1D[K
+services, implement sharding strategies if single-node write capacity is ex[2D[K
+exhausted.
+
+### Vertical Scaling (Use Sparingly)
+*   Vertical scaling (increasing CPU/RAM on a single instance) should only [K
+be used for specific, tightly coupled services where sharding is impractica[10D[K
+impractical (e.g., core transactional DBs).
+
+---
+
+# 6. Visual Workflows & State Models
+
+## 6.1 Order Processing Workflow (Sequence Diagram)
+
+This sequence diagram details the interaction between services during a suc[3D[K
+successful order creation and inventory reservation.
+
+```plantuml
+@startuml OrderProcessingSequence
+title Order Processing Workflow
+autonumber
+
+actor Client
+participant Gateway
+participant S_Order as OrderS
+participant Kafka as Kafka
+participant S_Inventory as InventoryS
+participant PG as PG
+participant Mongo as Mongo
+
+Client -> Gateway : POST /orders (Order Details)
+activate Gateway
+
+Gateway -> OrderS : Route Order Creation
+activate OrderS
+OrderS -> Kafka : Publish Event: OrderCreated (TraceID=T1)
+activate Kafka
+
+Kafka --> InventoryS : Consume: OrderCreated (T1)
+activate InventoryS
+InventoryS -> Mongo : Read Product Data (SKU)
+note right: Check stock availability
+
+if (Stock Available?) then (Yes)
+  InventoryS -> InventoryS : Reserve Stock (Internal Logic)
+  InventoryS -> Kafka : Publish Event: InventoryReserved (T1)
+  InventoryS --> Kafka
+else (No)
+  InventoryS -> Kafka : Publish Event: InventoryReservationFailed (T1)
+  InventoryS --> Kafka
+end
+
+deactivate InventoryS
+
+Kafka --> OrderS : Consume: InventoryReserved (T1)
+deactivate Kafka
+OrderS -> PG : Create Order Record (Transaction)
+PG --> OrderS : Order ID generated
+OrderS -> Gateway : Respond 201 Created (Order ID)
+deactivate OrderS
+
+Gateway --> Client : Success Response (201)
+deactivate Gateway
+@enduml
+```
+
+## 6.2 Inventory Management State Model (State Diagram)
+
+This defines the possible states an inventory item can exist in.
+
+```plantuml
+@startuml InventoryState
+skinparam statecolor #lightgray
+
+state "Product State" {
+  state "AVAILABLE" as Available {
+    state "RESERVED" as Reserved {
+      state "OUT_OF_STOCK" as OutOfStock {
+        state "DISCONTINUED" as Discontinued {
+          state "ARCHIVED" as Archived {
+        }
+      }
+    }
+  }
+}
+
+' Transitions
+Available --> Reserved : Request Reservation (Order Event)
+Reserved --> Available : Reservation Released (Order Cancel/Timeout)
+Available --> OutOfStock : Stock Depleted (Inventory Event)
+Available --> Discontinued : Product Ended (Admin Event)
+```
+
+## 6.3 User Registration Journey (User Journey Map)
+
+This visual guide maps the emotional and functional journey of a new user r[1D[K
+registering and placing their first order.
+
+| Stage | User Action | System Interaction | Key Metric/Goal | Emotional St[2D[K
+State |
+| :--- | :--- | :--- | :--- | :--- |
+| **1. Entry** | Lands on Homepage | API Gateway routes request. | Latency [K
+$< 200ms$ | Curious |
+| **2. Registration** | Signs up (S_User) | Auth Service validates, creates[7D[K
+creates user. | Success Rate $100\%$ | Focused |
+| **3. Browsing** | Searches for products | S_Catalog queries MongoDB/Redis[13D[K
+MongoDB/Redis. | Search Latency $< 300ms$ | Engaged |
+| **4. Cart** | Adds items to cart | Session data stored in Redis. | Sessio[6D[K
+Session persistence | Intent |
+| **5. Checkout** | Places order | S_Order initiates event flow (Kafka). | [K
+Transaction Success Rate | Anxious (high stakes) |
+| **6. Fulfillment** | Waits for confirmation | S_Payment $\to$ PG; S_Inven[7D[K
+S_Inventory $\to$ Kafka. | End-to-End Flow Completion | Hopeful |
+| **7. Confirmation** | Receives confirmation | S_Notification processes ev[2D[K
+event. | Notification Delivery Rate | Satisfied |
+

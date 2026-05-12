@@ -1,0 +1,99 @@
+GEMMA 4 MODEL SPECIFICATIONS
+============================
+Generated: 2026-04-23 19:41:23 IST
+Reference: https://ollama.com/library/gemma4
+
+GEMMA 4 E2B MODEL:
+=================
+Model Name: gemma4:e2b
+Effective Parameters: 2.3 Billion
+File Size (Actual): 6.7 GB (measured)
+Listed Size: 7.2 GB (includes metadata and overhead)
+Context Window: 8,192 tokens
+Native Modalities: Text
+Architecture: Transformer-based
+Quantization: Likely INT4/INT8 optimized for efficiency
+Template: {{ .Prompt }}
+Renderer: gemma4
+Parser: gemma4
+
+Model Parameters:
+- Temperature: 1.0 (default)
+- Top-K: 64
+- Top-P: 0.95
+
+Model Hash: sha256-4e30e2665218745ef463f722c0bf86be0cab6ee676320f1cfadf91e989107448
+License: Apache License 2.0
+
+GEMMA 4 E4B MODEL:
+=================
+Model Name: gemma4:e4b (latest)
+Effective Parameters: 4.5 Billion
+File Size (Actual): 8.9 GB (measured)
+Listed Size: 9.6 GB (includes metadata and overhead)
+Context Window: 8,192 tokens
+Native Modalities: Text
+Architecture: Transformer-based
+Quantization: Likely INT4/INT8 optimized for performance
+Template: {{ .Prompt }}
+Renderer: gemma4
+Parser: gemma4
+
+Model Parameters:
+- Temperature: 1.0 (default)
+- Top-K: 64
+- Top-P: 0.95
+
+Model Hash: sha256-4c27e0f5b5adf02ac956c7322bd2ee7636fe3f45a8512c9aba5385242cb6e09a
+License: Apache License 2.0
+
+COMPARATIVE ANALYSIS:
+====================
+Size Difference: E4B is ~33% larger than E2B (8.9GB vs 6.7GB)
+Parameter Difference: E4B has ~96% more parameters than E2B (4.5B vs 2.3B)
+Context Window: Both models support 8,192 token context window
+Expected Performance: E4B should provide higher quality outputs but slower inference
+Expected Use Cases:
+- E2B: Real-time applications, resource-constrained environments
+- E4B: Complex reasoning, detailed code generation, comprehensive analysis
+
+OFFICIAL GEMMA 4 CAPABILITIES:
+==============================
+(As per https://ollama.com/library/gemma4)
+
+Core Strengths:
+- Frontier-level performance at each size
+- Advanced reasoning capabilities
+- Agentic workflow support
+- Coding and programming assistance
+- Multimodal understanding (future versions)
+
+Design Philosophy:
+- Optimized for on-device deployment
+- Efficient inference on consumer hardware
+- Balance between model capability and resource requirements
+- Enterprise-ready with Apache 2.0 licensing
+
+EVALUATION READINESS:
+====================
+✓ Both models successfully downloaded and configured
+✓ Models use consistent parameter settings for fair comparison
+✓ File sizes confirm proper downloads (no corruption)
+✓ Apache 2.0 license allows enterprise evaluation and deployment
+✓ Models ready for comprehensive capability testing
+
+TECHNICAL CONFIGURATION:
+========================
+Execution Framework: Ollama 0.21.0 with llama.cpp backend
+Hardware Optimization: Apple Silicon (M3 Pro) optimized inference
+Memory Management: Dynamic loading with efficient caching
+Context Handling: 8K token window with proper truncation
+Temperature Control: Balanced creativity (1.0) with deterministic sampling
+
+NEXT STEPS:
+===========
+1. Baseline performance measurement
+2. Advanced reasoning capability tests
+3. Coding and agentic workflow evaluation
+4. Performance benchmarking and resource monitoring
+5. Comprehensive comparison and recommendation generation

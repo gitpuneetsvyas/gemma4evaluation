@@ -1,0 +1,81 @@
+GEMMA 4 BENCHMARK - SYSTEM ENVIRONMENT DOCUMENTATION
+============================================================
+Generated: 2026-04-23 19:38:56 IST
+
+HARDWARE SPECIFICATIONS:
+========================
+Model Name: MacBook Pro
+Model Identifier: Mac15,7
+Model Number: MRW23HN/A
+Chip: Apple M3 Pro
+Total Number of Cores: 12 (6 Performance and 6 Efficiency)
+Memory: 36 GB
+System Firmware Version: 18000.101.7
+Serial Number: L19MD7Y46L
+Hardware UUID: 1890449D-47F0-5798-84C3-EB86DC0E6505
+
+SOFTWARE ENVIRONMENT:
+====================
+System Version: macOS 26.4.1 (25E253)
+Kernel Version: Darwin 25.4.0
+Boot Volume: Macintosh HD
+Computer Name: VBSINDLM0001
+User Name: Punnet Vyas (puneetvyas)
+Secure Virtual Memory: Enabled
+System Integrity Protection: Enabled
+Time since boot: 7 days, 8 hours, 47 minutes
+
+OLLAMA CONFIGURATION:
+====================
+Ollama Version: 0.21.0
+Execution Framework: llama.cpp backend
+Service Status: Running (via Homebrew services)
+
+SYSTEM PERFORMANCE BASELINE:
+============================
+Processes: 977 total, 5 running, 972 sleeping, 4935 threads
+Load Average: 2.88, 2.42, 2.31
+CPU Usage: 8.0% user, 18.3% sys, 73.95% idle
+Physical Memory: 32G used (2678M wired, 1279M compressor), 3865M unused
+Virtual Memory: 485T vsize, 6144M framework vsize
+Shared Libraries: 805M resident, 146M data, 132M linkedit
+Memory Regions: 951837 total, 12G resident, 512M private, 3858M shared
+
+STORAGE INFORMATION:
+===================
+Main Drive (/): 460GB total, 12GB used, 289GB available (4% capacity)
+System Volumes Data: 460GB total, 145GB used, 289GB available (34% capacity)
+VM Volume: 460GB total, 5.0GB used, 289GB available (2% capacity)
+
+NETWORK ACTIVITY:
+================
+Packets In: 77,227,775 packets / 101GB data
+Packets Out: 31,530,404 packets / 4.165GB data
+
+DISK ACTIVITY:
+=============
+Read Operations: 4,692,571 operations / 167GB data
+Write Operations: 4,371,761 operations / 196GB data
+
+BATTERY STATUS:
+==============
+Status: Drawing from Battery Power
+Battery Level: 91%
+Time Remaining: 7:05
+Internal Battery ID: 34734179
+Present: true
+Charging Status: discharging
+
+EVALUATION READINESS:
+====================
+✓ Sufficient RAM (36GB) for both E2B and E4B models
+✓ Adequate storage space (289GB available)
+✓ Modern Apple Silicon (M3 Pro) with optimized performance
+✓ Ollama service running and operational
+✓ System stable (7+ days uptime)
+✓ Battery sufficient for extended testing (91%)
+✓ Low CPU baseline usage (26.3% total, 73.95% idle)
+✓ Ample memory available (3.8GB unused + compression)
+
+OPTIMAL TESTING CONDITIONS CONFIRMED
+====================================

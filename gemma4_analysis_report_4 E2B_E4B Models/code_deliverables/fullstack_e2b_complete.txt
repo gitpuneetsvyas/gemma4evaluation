@@ -1,0 +1,209 @@
+Thinking...
+Here's a thinking process that leads to the suggested plan:
+
+1.  **Analyze the Request & Role:**
+    *   **Role:** Senior Full-Stack Developer. This implies high standards,[10D[K
+standards, robust design, security focus, and choosing appropriate modern t[1D[K
+technologies.
+    *   **Goal:** Build a complete Task Management System (full stack).
+    *   **Constraint:** Execute steps *methodically* and *only proceed afte[4D[K
+after confirmation*. This demands a structured, phased approach.
+    *   **System Scope:** Users (roles), Projects, Tasks (dependencies, tim[3D[K
+time tracking), Comments/Files, Audit Logs.
+
+2.  **Deconstruct the Steps:** The request defines a clear 6-step process. [K
+I must treat each step as a major deliverable.
+
+    *   **STEP 1: Database Schema Design (Data Layer)** -> Focus on relatio[7D[K
+relational design, normalization, and integrity.
+    *   **STEP 2: Backend API (Spring Boot) (Service Layer)** -> Focus on R[1D[K
+REST, business logic, security endpoints, and architecture (MVC/Service/Rep[16D[K
+(MVC/Service/Repository).
+    *   **STEP 3: Frontend (React) (Presentation Layer)** -> Focus on UI/UX[5D[K
+UI/UX, state management, routing, responsiveness, and real-time features.
+    *   **STEP 4: Authentication & Authorization (Security Layer)** -> Focu[4D[K
+Focus on deep security protocols (JWT, RBAC, MFA, policies).
+    *   **STEP 5: Deployment & DevOps (Infrastructure Layer)** -> Focus on [K
+containerization (Docker, K8s), orchestration, and CI/CD.
+    *   **STEP 6: Monitoring & Logging (Observability Layer)** -> Focus on [K
+metrics, logging, tracing, and alerting.
+
+3.  **Execution Strategy (Self-Correction/Refinement):**
+
+    *   *Self-Correction on Delivery:* Since I cannot actually *run* a live[4D[K
+live server or deploy K8s, I must provide the *complete code structure* and[3D[K
+and *detailed configuration* that a human developer would use, focusing on [K
+the interfaces and integration points.
+    *   *Tooling Choice:* Spring Boot (robust enterprise choice), React (mo[3D[K
+(modern UI), PostgreSQL (standard database), Docker/K8s (standard deploymen[9D[K
+deployment).
+
+4.  **Execution Phase 1: STEP 1 (Database Schema Design)**
+    *   Need tables for Users, Roles, Projects, Tasks, Comments, Attachment[10D[K
+Attachments, and Audit Logs.
+    *   Need appropriate foreign keys and data types.
+    *   *Output:* SQL DDL. (Ready to proceed).
+
+5.  **Execution Phase 2: STEP 2 (Backend API)**
+    *   Requires setting up Spring Boot structure (entities, repositories, [K
+controllers).
+    *   Requires JWT setup, Spring Security configuration, and service logi[4D[K
+logic.
+    *   *Output:* Spring Boot structure (Code, configuration, dependency se[2D[K
+setup). (Ready to proceed).
+
+6.  **Execution Phase 3: STEP 3 (Frontend)**
+    *   Requires a React structure (components, state management).
+    *   Requires handling API calls, routing, and WebSocket integration.
+    *   *Output:* React components/structure (Code, state management logic)[6D[K
+logic). (Ready to proceed).
+
+7.  **Execution Phase 4: STEP 4 (Authentication & Authorization)**
+    *   This step relies heavily on Step 2. Need to define Spring Security [K
+configuration, custom filters, and RBAC logic.
+    *   *Output:* Detailed Spring Security configuration and RBAC implement[9D[K
+implementation structure. (Ready to proceed).
+
+8.  **Execution Phase 5: STEP 5 (Deployment & DevOps)**
+    *   Requires Dockerfiles, Docker Compose, and Kubernetes manifests (YAM[4D[K
+(YAML).
+    *   Need a basic CI/CD workflow definition (GitHub Actions).
+    *   *Output:* Docker setup, Docker Compose, basic K8s YAML. (Ready to p[1D[K
+proceed).
+
+9.  **Execution Phase 6: STEP 6 (Monitoring & Logging)**
+    *   Requires adding Micrometer/Prometheus endpoints to the Spring Boot [K
+app.
+    *   Requires setting up log aggregation (Logback/ELK concept).
+    *   Requires tracing setup (Spring Cloud Sleuth/Jaeger concept).
+    *   *Output:* Configuration snippets for observability tools. (Ready to[2D[K
+to proceed).
+
+10. **Final Check:** Ensure the response adheres to the sequential, methodi[7D[K
+methodical requirement. (The structure below confirms this approach.)
+...done thinking.
+
+As a senior full-stack developer, I will execute this task methodically. I [K
+will focus on architectural integrity, security, and scalability in every p[1D[K
+phase.
+
+I will start with **STEP 1: Database Schema Design**.
+
+---
+
+## STEP 1: Database Schema Design
+
+I will design a robust relational schema using standard SQL DDL (PostgreSQL[11D[K
+(PostgreSQL syntax assumed).
+
+### Entities and Relationships
+
+1.  **Users:** Stores user credentials and roles.
+2.  **Roles:** Defines the access levels (Admin, Manager, Developer, Tester[6D[K
+Tester).
+3.  **Projects:** Stores high-level project information.
+4.  **Tasks:** Stores individual tasks, linking them to Projects and Assign[6D[K
+Assignees, handling dependencies and time tracking.
+5.  **Comments:** Stores task-specific feedback.
+6.  **Attachments:** Stores file metadata and links.
+7.  **AuditLogs:** Tracks all critical changes made to the system.
+
+### SQL DDL Statements
+
+```sql
+-- 1. Roles Table (For RBAC)
+CREATE TABLE Roles (
+    role_id SERIAL PRIMARY KEY,
+    role_name VARCHAR(50) UNIQUE NOT NULL -- e.g., 'Admin', 'Manager', 'Dev[4D[K
+'Developer', 'Tester'
+);
+
+-- 2. Users Table
+CREATE TABLE Users (
+    user_id SERIAL PRIMARY KEY,
+    username VARCHAR(100) UNIQUE NOT NULL,
+    email VARCHAR(255) UNIQUE NOT NULL,
+    password_hash VARCHAR(255) NOT NULL,
+    full_name VARCHAR(255),
+    role_id INTEGER NOT NULL REFERENCES Roles(role_id),
+    is_active BOOLEAN DEFAULT TRUE,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+);
+
+-- 3. Projects Table
+CREATE TABLE Projects (
+    project_id SERIAL PRIMARY KEY,
+    project_name VARCHAR(255) NOT NULL,
+    description TEXT,
+    status VARCHAR(50) NOT NULL DEFAULT 'Planning', -- e.g., Planning, In P[1D[K
+Progress, Completed, Blocked
+    priority VARCHAR(50) NOT NULL DEFAULT 'Medium', -- e.g., Low, Medium, H[1D[K
+High, Critical
+    start_date DATE,
+    deadline DATE,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+);
+
+-- 4. Tasks Table
+CREATE TABLE Tasks (
+    task_id SERIAL PRIMARY KEY,
+    project_id INTEGER NOT NULL REFERENCES Projects(project_id),
+    task_name VARCHAR(255) NOT NULL,
+    description TEXT,
+    status VARCHAR(50) NOT NULL DEFAULT 'To Do', -- e.g., To Do, In Progres[7D[K
+Progress, Review, Done
+    priority VARCHAR(50) NOT NULL DEFAULT 'Medium',
+    assigned_to_user_id INTEGER REFERENCES Users(user_id),
+    due_date TIMESTAMP WITH TIME ZONE,
+    start_time TIMESTAMP WITH TIME ZONE,
+    end_time TIMESTAMP WITH TIME ZONE, -- For time tracking
+    dependency_task_id INTEGER REFERENCES Tasks(task_id), -- For complex wo[2D[K
+workflow dependencies
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+);
+
+-- 5. Comments Table
+CREATE TABLE Comments (
+    comment_id SERIAL PRIMARY KEY,
+    task_id INTEGER NOT NULL REFERENCES Tasks(task_id),
+    user_id INTEGER NOT NULL REFERENCES Users(user_id),
+    comment_text TEXT NOT NULL,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+);
+
+-- 6. Attachments Table (File Management)
+CREATE TABLE Attachments (
+    attachment_id SERIAL PRIMARY KEY,
+    task_id INTEGER NOT NULL REFERENCES Tasks(task_id),
+    file_name VARCHAR(255) NOT NULL,
+    file_path VARCHAR(512) NOT NULL, -- Path relative to storage (e.g., S3 [K
+or local volume)
+    file_type VARCHAR(100),
+    uploaded_by_user_id INTEGER NOT NULL REFERENCES Users(user_id),
+    uploaded_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+);
+
+-- 7. Audit Logs Table (For Compliance and Tracking)
+CREATE TABLE AuditLogs (
+    log_id BIGSERIAL PRIMARY KEY,
+    entity_type VARCHAR(50) NOT NULL, -- e.g., 'User', 'Project', 'Task'
+    entity_id INTEGER NOT NULL,       -- ID of the affected entity
+    action VARCHAR(50) NOT NULL,      -- e.g., 'CREATE', 'UPDATE', 'DELETE'[8D[K
+'DELETE', 'ASSIGN'
+    user_id INTEGER REFERENCES Users(user_id),
+    changed_by_ip VARCHAR(45),
+    change_details JSONB,             -- Store detailed changes as JSON
+    timestamp TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Indexing for performance
+CREATE INDEX idx_tasks_project_id ON Tasks(project_id);
+CREATE INDEX idx_tasks_assigned_to ON Tasks(assigned_to_user_id);
+CREATE INDEX idx_comments_task_id ON Comments(task_id);
+CREATE INDEX idx_auditlogs_timestamp ON AuditLogs(timestamp);
+```
+
+**Confirmation:** Step 1 (Database Schema Design) is complete. Proceeding t[1D[K
+to **STEP 2: Backend API (Spring Boot)**.
+

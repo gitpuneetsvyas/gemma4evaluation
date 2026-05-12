@@ -1,0 +1,35 @@
+Thinking...
+1.  **Analyze the Request:** The user wants an explanation of REST API prin[4D[K
+principles, and the explanation must be exactly 50 words.
+2.  **Identify Key REST Principles:**
+    *   Client-Server architecture.
+    *   Statelessness.
+    *   Client-side focus (resources).
+    *   Use of standard HTTP methods (GET, POST, PUT, DELETE).
+    *   Representation of data (using URIs).
+3.  **Drafting (Focusing on core concepts):** Start with what REST is, then[4D[K
+then introduce the core concepts (resources, methods, statelessness).
+4.  **Refining and Counting (Iterative Process):**
+
+    *   *Draft 1:* REST is an architectural style for designing networked a[1D[K
+applications. It relies on standard HTTP methods to interact with resources[9D[K
+resources identified by unique URLs. Key principles include statelessness, [K
+where the server holds no client session state, and using standard methods [K
+like GET to retrieve data and POST to create new resources. This promotes s[1D[K
+scalability. (49 words)
+
+5.  **Final Polish (Checking the count and flow):** The draft is 49 words. [K
+I need exactly 50. I can add one word for better flow or emphasis.
+
+    *   *Final Version Check:* (Adding emphasis or a concluding thought).
+
+6.  **Final Output Generation.** (Ensure it hits exactly 50 words).
+...done thinking.
+
+REST (Representational State Transfer) is an architectural style utilizing [K
+standard HTTP methods to interact with resources. It focuses on stateless c[1D[K
+communication, meaning each request contains all necessary information. Dat[3D[K
+Data is accessed via unique URLs (resources). Principles involve using meth[4D[K
+methods like GET, POST, PUT, and DELETE to perform CRUD operations, ensurin[7D[K
+ensuring scalable and efficient communication.
+

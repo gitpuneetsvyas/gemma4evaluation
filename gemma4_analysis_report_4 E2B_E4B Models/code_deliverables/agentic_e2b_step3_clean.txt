@@ -1,0 +1,104 @@
+## Step 6.3: Refactoring LegacyUserService: Authenticate User
+
+This example refactors the `authenticateUser` method in `LegacyUserService` to incorporate modern security practices and improve overall robustness.
+
+**Original Problematic Code (Java):**
+
+```java
+@Service
+public class LegacyUserService {
+    private final UserRepository userRepository; // Placeholder for repository
+
+    public LegacyUserService(UserRepository userRepository) {
+        this.userRepository = userRepository; 
+    }
+
+    public User authenticateUser(String username, String password) {
+        try {
+            User user = userRepository.findByUsername(username);
+            if (user != null && BCryptUtil.matches(password, user.getPassword())) { // No longer relies on database-level hashing 
+                return user; 
+            } else {
+                throw new InvalidCredentialsException("Invalid Username or Password"); 
+            }
+        } catch (UserNotFoundException | BCryptMismatchException e) {
+            e.printStackTrace(); // Logging for error handling
+            // ... your custom logic 
+        } 
+    }
+
+}
+```
+
+**Refactored Modern Implementation (Java):**
+
+```java
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Service;
+
+@Service
+public class UserService {
+
+    private final AuthenticationManager authenticationManager; // Spring's AuthenticationManager 
+    private final BCryptPasswordEncoder passwordEncoder; // For hashing passwords
+
+    @Autowired
+    public UserService(AuthenticationManager authenticationManager, BCryptPasswordEncoder passwordEncoder) {
+        this.authenticationManager = authenticationManager; // Dependency Injection for testability
+        this.passwordEncoder = passwordEncoder; 
+    }
+
+    public User authenticateUser(String username, String password) {
+        try {
+            // Authenticate using Spring Security's AuthenticationManager
+            UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(username, password);
+            SecurityContextHolder.getContext().setAuthentication(token);
+
+            authenticationManager.authenticate(token); 
+
+            User user = userRepository.findByUsername(username);
+            if (user != null && passwordEncoder.matches(password, user.getPassword())) { // Use BCrypt for hashing
+                return user; 
+            } else {
+                throw new InvalidCredentialsException("Invalid Username or Password"); 
+            }
+        } catch (Exception e) {
+            e.printStackTrace(); 
+            // ... your custom logic 
+        } 
+    }
+
+}
+```
+
+**Key Improvements:**
+
+1. **Spring Security Integration**: The code utilizes Spring Security's built-in mechanisms for authentication and authorization, eliminating manual implementation of the authentication flow.
+
+2. **Password Hashing with BCrypt**:  The `BCryptPasswordEncoder` ensures robust password storage by employing a cryptographic hash (BCrypt) instead of storing plaintext passwords directly in the database or in any other medium.
+
+3. **Error Handling & Logging**:  Robust error handling is implemented through exceptions like `InvalidCredentialsException`, along with logging for debugging and monitoring purposes.
+
+**Code Explanation:**
+
+* **Dependency Injection:** The code uses dependency injection to manage authentication management and password hashing.
+* **Spring Security Authentication Manager:**  `AuthenticationManager` handles the request for user authentication and verification. It integrates seamlessly with Spring Security's authentication mechanisms, handling user identification, authorization, and security context updates.
+
+* **BCrypt Hashing:** The code employs `BCryptPasswordEncoder`, ensuring robust password storage by employing a cryptographic hash (BCrypt) instead of storing plaintext passwords directly in the database or in any other medium.
+
+**Testing Approach**:
+
+1. **Unit Testing**:  Write unit tests for the following:
+    * `authenticateUser` method, focusing on validation and error handling scenarios.
+2. **Integration Testing:** Test how the AuthenticationManager interacts with Spring Security's framework to verify correct authentication flow.
+3. **End-to-End Testing:** Use a test environment to simulate user flows and validate proper authorization checks, including logging and security features.
+
+**Further Considerations:**
+
+* **Database Integration:** If using JPA for persistence, consider storing hashed passwords in the database for faster retrieval and enhanced security.
+
+By implementing these changes, you will drastically improve the security of your application while ensuring more efficient and maintainable codebase.

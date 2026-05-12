@@ -1,0 +1,58 @@
+GEMMA 4 BENCHMARK - BASELINE PERFORMANCE
+=======================================
+Generated: 2026-04-23 19:43:06 IST
+
+SYSTEM BASELINE (PRE-MODEL TESTING):
+===================================
+Processes: 985 total, 4 running, 981 sleeping, 4997 threads
+Load Average: 3.39, 3.08, 2.64
+CPU Usage: 5.44% user, 17.14% sys, 77.40% idle
+Total CPU Available: 22.58% in use, 77.40% idle (good baseline)
+
+MEMORY BASELINE:
+===============
+Physical Memory: 32G used (2681M wired, 1278M compressor), 3645M unused
+Virtual Memory: 489T vsize, 6144M framework vsize
+Shared Libraries: 805M resident, 147M data, 132M linkedit
+Memory Regions: 952494 total, 12G resident, 522M private, 3998M shared
+Memory Available for Models: ~3.6GB immediately available + compression
+
+OLLAMA SERVICE STATUS:
+=====================
+Process ID: 21280
+CPU Usage: 0.0% (idle)
+Memory Usage: 73,728 KB (~72 MB baseline)
+Runtime: 55:39.47 (stable, long-running)
+Status: Serving (ready for model requests)
+Path: /opt/homebrew/opt/ollama/bin/ollama serve
+
+NETWORK BASELINE:
+================
+Packets In: 77,235,036 packets / 101GB total
+Packets Out: 31,541,768 packets / 4.178GB total
+Network Activity: Normal operational levels
+
+DISK I/O BASELINE:
+=================
+Read Operations: 4,693,773 operations / 167GB data
+Write Operations: 4,383,994 operations / 197GB data
+Disk Activity: Stable background levels
+
+SYSTEM READINESS ASSESSMENT:
+============================
+✓ Low CPU usage (77.40% idle) - Excellent for testing
+✓ Sufficient available memory (3.6GB + compression)
+✓ Ollama service stable and responsive
+✓ Network functioning normally
+✓ Disk I/O within normal parameters
+✓ System load manageable (3.39 avg)
+
+BASELINE SUMMARY:
+================
+System State: Optimal for benchmark testing
+Expected Model Performance: Should see clear performance differences
+Resource Headroom: Sufficient for both E2B and E4B models
+Interference Factors: Minimal (normal background processes only)
+
+READY FOR CAPABILITY TESTING
+=============================

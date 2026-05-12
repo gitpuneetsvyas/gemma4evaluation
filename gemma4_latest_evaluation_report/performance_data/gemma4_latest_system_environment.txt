@@ -1,0 +1,94 @@
+Hardware:
+
+    Hardware Overview:
+
+      Model Name: MacBook Pro
+      Model Identifier: Mac15,7
+      Model Number: MRW23HN/A
+      Chip: Apple M3 Pro
+      Total Number of Cores: 12 (6 Performance and 6 Efficiency)
+      Memory: 36 GB
+      System Firmware Version: 18000.101.7
+      OS Loader Version: 18000.101.7
+      Serial Number (system): L19MD7Y46L
+      Hardware UUID: 1890449D-47F0-5798-84C3-EB86DC0E6505
+      Provisioning UDID: 00006030-001611193EA3001C
+      Activation Lock Status: Disabled
+
+Software:
+
+    System Software Overview:
+
+      System Version: macOS 26.4.1 (25E253)
+      Kernel Version: Darwin 25.4.0
+      Boot Volume: Macintosh HD
+      Boot Mode: Normal
+      Computer Name: VBSINDLM0001
+      User Name: Punnet Vyas (puneetvyas)
+      Secure Virtual Memory: Enabled
+      System Integrity Protection: Enabled
+      Time since boot: 11 days, 10 hours, 16 minutes
+
+=== OLLAMA VERSION AND CONFIGURATION ===
+ollama version is 0.21.0
+=== SYSTEM PERFORMANCE BASELINE ===
+Processes: 612 total, 3 running, 609 sleeping, 4028 threads 
+2026/04/27 21:06:15
+Load Avg: 3.33, 2.83, 2.69 
+CPU usage: 8.87% user, 18.24% sys, 72.87% idle 
+SharedLibs: 654M resident, 122M data, 94M linkedit.
+MemRegions: 888363 total, 9728M resident, 274M private, 2092M shared.
+PhysMem: 21G used (2593M wired, 1963M compressor), 14G unused.
+VM: 346T vsize, 6144M framework vsize, 1219526(0) swapins, 1868402(0) swapouts.
+Networks: packets: 80746611/104G in, 33658095/4726M out.
+Disks: 10025456/481G read, 7155131/312G written.
+
+PID    COMMAND          %CPU TIME     #TH    #WQ #PORTS MEM   PURG  CMPRS PGRP  PPID  STATE    BOOSTS         %CPU_ME %CPU_OTHRS UID FAULTS     COW    MSGSENT   MSGRECV   SYSBSD    SYSMACH    CSW       PAGEINS IDLEW   POWER INSTRS CYCLES JETPRI USER                  #MREGS RPRVT VPRVT VSIZE KPRVT KSHRD
+98090  PowerUIAgent     0.0  00:00.14 2      1   63     4432K 0B    2576K 98090 1     sleeping *0[1]          0.00000 0.00000    0   1956       136    471       141       1967      712        751       267     0       0.0   0      0      0      root                  N/A    N/A   N/A   N/A   N/A   N/A  
+96428  com.apple.CodeSi 0.0  00:00.08 2      1   20     1968K 0B    832K  96428 1     sleeping *0[14]         0.00000 0.00000    0   1845       90     157       114       2612      340        196       8       0       0.0   0      0      0      root                  N/A    N/A   N/A   N/A   N/A   N/A  
+96404  callservicesd    0.0  00:02.16 6      2   391    13M   0B    8256K 96404 1     sleeping *0[91]         0.00000 0.00000    501 16742      302    2418      1817      31918     6502       12831     2653    0       0.0   0      0      0      puneetvyas            N/A    N/A   N/A   N/A   N/A   N/A  
+=== DISK SPACE AND MEMORY CONFIGURATION ===
+Filesystem                                            Size    Used   Avail Capacity iused ifree %iused  Mounted on
+/dev/disk3s1s1                                       460Gi    12Gi   284Gi     4%    458k  3.0G    0%   /
+devfs                                                205Ki   205Ki     0Bi   100%     710     0  100%   /dev
+/dev/disk3s6                                         460Gi   8.0Gi   284Gi     3%       8  3.0G    0%   /System/Volumes/VM
+/dev/disk3s2                                         460Gi   8.4Gi   284Gi     3%    1.4k  3.0G    0%   /System/Volumes/Preboot
+/dev/disk3s4                                         460Gi   4.3Mi   284Gi     1%      59  3.0G    0%   /System/Volumes/Update
+/dev/disk2s2                                         500Mi   6.0Mi   481Mi     2%       1  4.9M    0%   /System/Volumes/xarts
+/dev/disk2s1                                         500Mi   5.6Mi   481Mi     2%      31  4.9M    0%   /System/Volumes/iSCPreboot
+/dev/disk2s3                                         500Mi   2.8Mi   481Mi     1%      87  4.9M    0%   /System/Volumes/Hardware
+/dev/disk3s5                                         460Gi   147Gi   284Gi    35%    1.2M  3.0G    0%   /System/Volumes/Data
+map auto_home                                          0Bi     0Bi     0Bi   100%       0     0     -   /System/Volumes/Data/home
+/Users/puneetvyas/Downloads/Visual Studio Code.app   460Gi    80Gi   359Gi    19%    1.1M  3.8G    0%   /private/var/folders/pf/psh03qkd5fgbbwj0ykh22y180000gn/T/AppTranslocation/AA2B8D10-9952-4FF2-AF0C-1EEAF9C33B72
+/dev/disk4s1                                         531Mi   484Mi    47Mi    92%      61  4.3G    0%   /Volumes/Ollama
+=== MEMORY STATISTICS ===
+Mach Virtual Memory Statistics: (page size of 16384 bytes)
+Pages free:                              881676.
+Pages active:                            571516.
+Pages inactive:                          528429.
+Pages speculative:                        45283.
+Pages throttled:                              0.
+Pages wired down:                        164539.
+Pages purgeable:                          25710.
+"Translation faults":                8624366738.
+Pages copy-on-write:                    9150094.
+Pages zero filled:                    562116057.
+Pages reactivated:                     21035655.
+Pages purged:                           6479787.
+File-backed pages:                       194704.
+Anonymous pages:                         950524.
+Pages stored in compressor:              964332.
+Pages occupied by compressor:            125595.
+Decompressions:                        24755461.
+Compressions:                          32596918.
+Pageins:                               18473857.
+Pageouts:                                451370.
+Swapins:                                1219542.
+Swapouts:                               1868402.
+=== CPU AND BATTERY INFORMATION ===
+12
+12
+12
+38654705664
+Now drawing from 'AC Power'
+ -InternalBattery-0 (id=34734179)	100%; charged; 0:00 remaining present: true
